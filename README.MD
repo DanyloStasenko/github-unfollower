@@ -16,7 +16,7 @@ This application will detect users, who are not following You while You followin
    `localhost:8080/test`
    with body: 
    `{`
-   	`"url": "https://github.com/DanyloStasenko?tab=followers"`
+   	`"username": "https://github.com/DanyloStasenko?tab=followers"`
    `}`
 
 **NOTE:** URL to Your page

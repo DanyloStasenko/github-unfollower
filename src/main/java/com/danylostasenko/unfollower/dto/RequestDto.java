@@ -3,14 +3,14 @@ package com.danylostasenko.unfollower.dto;
 import java.util.Objects;
 
 public class RequestDto {
-    private String url;
+    private String username;
 
-    public String getUrl() {
-        return url;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -18,18 +18,18 @@ public class RequestDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RequestDto requestDto = (RequestDto) o;
-        return Objects.equals(url, requestDto.url);
+        return Objects.equals(username, requestDto.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url);
+        return Objects.hash(username);
     }
 
     @Override
     public String toString() {
         return "RequestDto{" +
-                "url='" + url + '\'' +
+                "username='" + username + '\'' +
                 '}';
     }
 }

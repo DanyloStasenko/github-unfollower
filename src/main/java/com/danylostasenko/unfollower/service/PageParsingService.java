@@ -29,4 +29,14 @@ public class PageParsingService {
         log.info("Found followers: " + users.size() + " : " + users);
         return users;
     }
+
+    public int getFollowersCount(String pageSourceCode){
+        int followers = 0;
+        return followers;
+    }
+
+    public int getFolloingCount(String pageSourceCode){
+        int following = 0;
+        return following;
+    }
 }

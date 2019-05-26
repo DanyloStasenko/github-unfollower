@@ -1,7 +1,10 @@
 package com.danylostasenko.unfollower.controller;
 
+import com.danylostasenko.unfollower.dto.FollowersDto;
 import com.danylostasenko.unfollower.dto.RequestDto;
 import com.danylostasenko.unfollower.dto.ResponseDto;
+import com.danylostasenko.unfollower.dto.UserDto;
+import com.danylostasenko.unfollower.service.AnalyzerService;
 import com.danylostasenko.unfollower.service.PageParsingService;
 import com.danylostasenko.unfollower.utils.WebDriverUtil;
 import org.openqa.selenium.WebDriver;
@@ -21,11 +24,13 @@ public class TestController {
 
     private PageParsingService parsingService;
 
+    private AnalyzerService analyzerService;
     private WebDriver driver;
 
     @Autowired
-    public TestController(PageParsingService parsingService) {
+    public TestController(PageParsingService parsingService, AnalyzerService analyzerService) {
         this.parsingService = parsingService;
+        this.analyzerService = analyzerService;
     }
 
     /**
@@ -51,13 +56,13 @@ public class TestController {
         }
 
         // get data
-        log.info("Getting data from URL: " + requestDto.getUrl());
-        if (!requestDto.getUrl().contains("https://") &&  !requestDto.getUrl().contains("http://")){
+        log.info("Getting data from URL: " + requestDto.getUsername());
+        if (!requestDto.getUsername().contains("https://") &&  !requestDto.getUsername().contains("http://")){
             log.info("Adding http prefix...");
-            driver.get("http://" + requestDto.getUrl());
+            driver.get("http://" + requestDto.getUsername());
         } else {
             log.info("http prefix was already added");
-            driver.get(requestDto.getUrl());
+            driver.get(requestDto.getUsername());
         }
 
         // parse data
@@ -71,5 +76,17 @@ public class TestController {
         response.setUsers(followers);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/followers")
+    public List<FollowersDto> analyzeFollowers(@RequestBody RequestDto requestDto) {
+        log.info("Handled [POST] request...");
+        return analyzerService.analyzeFollowers(requestDto.getUsername());
+    }
+
+    @PostMapping("/profile")
+    public UserDto analyzeProfile(@RequestBody RequestDto requestDto) {
+        log.info("Handled [POST] request...");
+        return analyzerService.analyzeProfile(requestDto.getUsername());
     }
 }
