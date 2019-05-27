@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import utils.FileWriterUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,6 @@ public class AnalyzerService {
         RestTemplate restTemplate = new RestTemplate();
 
         boolean allFollowersAnalyzed = false;
-
 
         List<FollowersDto> totalFollowers = new ArrayList<>();
 
@@ -52,6 +52,8 @@ public class AnalyzerService {
                 allFollowersAnalyzed = true;
             }
         }
+
+        FileWriterUtil.writeToFile(totalFollowers, username + "-followers.txt");
 
         return totalFollowers;
     }
